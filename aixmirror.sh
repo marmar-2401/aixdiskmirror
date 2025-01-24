@@ -1,15 +1,9 @@
 #!/bin/bash
 
-# Script to dynamically find rootvg disks, perform bosboot, update the boot list, and save the system configuration.
+# Script to perform bosboot, update the boot list, and save system configuration.
 
 # Dynamically find the hdisk names for the rootvg
 ROOTVG_HD_DISK=$(lsvg -p rootvg | awk '{print $1}' | grep -E '^hdisk[0-9]+$')
-
-# Check if hdisk names were found
-if [ -z "${ROOTVG_HD_DISK}" ]; then
-    echo "Error: No hdisk devices found for rootvg."
-    exit 1
-fi
 
 # Perform bosboot for the rootvg disks
 for hdisk in ${ROOTVG_HD_DISK}; do
